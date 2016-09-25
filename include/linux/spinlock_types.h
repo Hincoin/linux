@@ -73,7 +73,8 @@ typedef struct spinlock {
 		};
 #endif
 	};
-} spinlock_t;
+	char cacheline_padding[SMP_CACHE_BYTES - sizeof(rlock)];
+} ____cacheline_aligned_in_smp spinlock_t;
 
 #define __SPIN_LOCK_INITIALIZER(lockname) \
 	{ { .rlock = __RAW_SPIN_LOCK_INITIALIZER(lockname) } }
